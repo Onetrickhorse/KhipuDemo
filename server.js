@@ -15,6 +15,9 @@ const PORT = process.env.PORT || 3000;
 const KHIPU_API_URL = 'https://sandbox.khipu.com/api/3.0/payments';
 const KHIPU_API_KEY = process.env.KHIPU_API_KEY;
 
+// Define the BASE_URL as your Render app URL
+const BASE_URL = 'https://khipudemo.onrender.com/'; // Replace with your actual Render URL
+
 app.post('/create-payment', async (req, res) => {
   try {
     const paymentData = {
@@ -22,9 +25,9 @@ app.post('/create-payment', async (req, res) => {
       currency: 'CLP',
       amount: 2000,
       transaction_id: 'demo-' + Date.now(),
-      return_url: 'http://localhost:3000/return',
-      cancel_url: 'http://localhost:3000/cancel',
-      notification_url: 'http://localhost:3000/notification',
+      return_url: `${BASE_URL}/return`,   // Use the dynamic BASE_URL for the return URL
+      cancel_url: `${BASE_URL}/cancel`,   // Use the dynamic BASE_URL for the cancel URL
+      notification_url: `${BASE_URL}/notification`, // Use the dynamic BASE_URL for the notification URL
       payer_email: 'test@example.com',
       bank_id: 'demobank'
     };
@@ -58,3 +61,4 @@ app.get('/cancel', (req, res) => {
 });
 
 app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+
